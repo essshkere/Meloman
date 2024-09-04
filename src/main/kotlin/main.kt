@@ -1,24 +1,23 @@
 fun main() {
-    val amountRegular = 15000
-    val amountNew = 15000
-
+    val amount = 15000
+    val statusCustomer = true
     val minDiscount = 100
     val maxDiscount = 0.95
     val regularDiscount = 0.99
 
-    val amountRegularDiscount =
-        if (amountRegular > 1000 && amountRegular < 10_001)
-            (amountRegular - minDiscount) * regularDiscount
-        else if (amountRegular > 10000) amountRegular * maxDiscount * regularDiscount
-        else amountRegular * regularDiscount
-    val amountNewDiscount =
-        if (amountNew > 1000 && amountNew < 10_001) amountNew - minDiscount
-        else if (amountNew > 10000) amountNew * maxDiscount
-        else amountNew
-
-    val totalAmountRegular = amountRegularDiscount.toInt()
-    val totalAmountNew = amountNewDiscount.toInt()
-    println("Стоимость для постоянного клиента: $totalAmountRegular руб.")
-    println("Стоимость для нового клиента $totalAmountNew руб.")
+    val amountDiscount =
+        if (!statusCustomer) {
+            if (amount > 1000 && amount < 10_001)
+                amount - minDiscount
+            else if (amount > 10000) amount * maxDiscount
+            else amount
+        } else {
+            if (amount > 1000 && amount < 10_001)
+                (amount - minDiscount) * regularDiscount
+            else if (amount > 10000) amount * maxDiscount * regularDiscount
+            else amount * regularDiscount
+        }
+    val totalAmount = amountDiscount.toInt()
+    println("Стоимость покупки: $totalAmount руб.")
 
 }
